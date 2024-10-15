@@ -22,11 +22,20 @@ model Guild {
 model Event {
   id          String   @id @default(cuid())
   name        String
-  description String
   managerId   String
 
   guildId     String
   guild       Guild    @relation(fields: [guildId], references: [id])
+
+  branches    EventBranch[]
+}
+
+model EventBranch {
+  id          String   @id @default(cuid())
+  name        String
+
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id])
 
   participations EventParticipation[]
 }
@@ -37,10 +46,12 @@ model EventParticipation {
   messageId   String
   confirmed   Boolean
 
-  eventId     String
-  event       Event    @relation(fields: [eventId], references: [id])
+  branchId    String
+  branch      EventBranch @relation(fields: [branchId], references: [id])
 
   files       EventParticipationFile[]
+
+  @@unique([branchId, userId])
 }
 
 model EventParticipationFile {
