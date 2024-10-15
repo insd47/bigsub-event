@@ -5,7 +5,7 @@ import { Client } from "discordx";
 
 export const bot = new Client({
   // To use only guild command
-  // botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
+  botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
 
   // Discord intents
   intents: [
@@ -18,11 +18,6 @@ export const bot = new Client({
 
   // Debug logs are disabled in silent mode
   silent: false,
-
-  // Configuration for @SimpleCommand
-  simpleCommand: {
-    prefix: "!",
-  },
 });
 
 bot.once("ready", () => {
